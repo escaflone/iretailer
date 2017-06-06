@@ -9,7 +9,7 @@ sum(
 count_goods
 ) as count_goods,
 </#if>
-<#if column.count_count_trades ??>
+<#if column.count_trades ??>
 sum(
 count_trades
 ) as count_trades,
