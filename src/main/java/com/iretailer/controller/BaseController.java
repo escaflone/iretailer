@@ -20,8 +20,7 @@ public class BaseController {
     BaseService baseService;
 
     @RequestMapping(value="/query" , method = RequestMethod.POST)
-    public String query(@RequestBody DataQueryParam dqp){
-        baseService.query(dqp);
-        return "success";
+    public Map query(@RequestBody DataQueryParam dqp){
+        return baseService.query(dqp);
     }
 }

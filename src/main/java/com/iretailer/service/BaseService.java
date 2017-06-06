@@ -16,10 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by clat on 2017/5/8.
@@ -29,112 +26,122 @@ public class BaseService {
 
     @Autowired
     BasicDataSource dbcp;
+    private static String COLUMN = "column";
+    private static String DATA = "data";
+
 
     public Map query(DataQueryParam dqp) {
-        Map<String, Object> result = new HashMap<>();
-//        if (dqp.getDataFields().size() == 1) {
-            handler(dqp);
-//        }
-        return result;
+        return handler(dqp);
     }
 
     private Map handler(DataQueryParam dqp) {
-        Map<String, String> config = Constant.dataFielsMap.get(dqp.getDataFields().get(0));
-        String table = config.get(Constant.TABLE);
-        String column = config.get(Constant.COLUMN);
+        Map<String, String> columnsMap = new HashMap<>();
+        String templateName = null;
+        for(String e : dqp.getDataFields()){
+            if(templateName == null) templateName = Constant.templateMap.get(e);
+            columnsMap.put(e, "");
+        }
         String st = Constant.timeFormat(dqp.getStartTime());
         String ed = Constant.timeFormat(dqp.getEndTime());
-        String groupBy = Constant.groupByMap.get(dqp.getGroupBy().getPeriod());
 
-        String[] columnsWithAs = new String[]{wrapSumWithAs(column), groupBy};
-        String sortBy = parseSortBy(dqp.getSortBy(), Arrays.asList(new String[]{column}));
+        String groupBy = dqp.getGroupBy().getPeriod();
 
-        Map<String,Object> params= new HashMap<>();
-        params.put("column", MapBuilder.build(new HashMap<String,String>())
-                .map("count_in","")
-                .get());
-        params.put("st",st);
-        params.put("ed",ed);
-        params.put("id",getSiteIds(dqp));
+        Map<String, Object> params = new HashMap<>();
+        params.put("column", columnsMap);
+        params.put("st", st);
+        params.put("ed", ed);
+        params.put("groupBy", groupBy);
+        if(dqp.getSiteIdList().size() > 0) {
+            params.put("siteid", getSiteIds(dqp.getSiteIdList()));
+        }else{
+            params.put("sitezoneid",getSiteIds(dqp.getSiteZoneList()));
+        }
+        if(dqp.getLimit().size()==2){
+            List<Integer> list= dqp.getLimit();
+            params.put("limit",list.get(0)+","+list.get(1));
+        }else if(dqp.getLimit().size()==1){
+            params.put("limit",dqp.getLimit().get(0));
+        }
 
-        String sql = getFreeMarkTemplate("inout.ftl",params);
+
+        String sql = getFreeMarkTemplate(templateName, params);
         System.out.println(sql);
-        query(sql);
-        return null;
+        Map result = query(sql,dqp.getReturnType());
+        return result;
     }
 
-    private String parseSortBy(Map<String, Integer> sortByMap, List<String> columns) {
-        StringBuilder sb = new StringBuilder("");
-        for (String key : sortByMap.keySet()) {
-            String col = Constant.dataFielsMap.get(key) != null ? Constant.dataFielsMap.get(key).get(Constant.COLUMN) : key;
-            if (columns.contains(col)) {
-                sb.append(wrapSum(col));
-            } else {
-                sb.append(col);
-            }
-            if (sortByMap.get(key) != 1) {
-                sb.append(" desc ");
-            }
-            sb.append(",");
-        }
-        if (sb.length() > 0) {
-            sb.deleteCharAt(sb.length() - 1);
-            return " order by " + sb.toString();
-        }
-        return null;
-    }
-
-    private void query(String sql) {
-        try {
-            Connection conn = dbcp.getConnection();
+    private Map query(String sql, Integer resultType) {
+        Map result = null;
+        try(Connection conn = dbcp.getConnection()){
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            Map map = parseResultSet(rs);
+            if (resultType == 1) {
+                result = parseResultSetToArray(rs);
+            } else {
+                result = parseResultSetToMaprs(rs);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private String wrapSum(String col) {
-        return "sum(" + col + ")";
-    }
-
-    private String wrapSumWithAs(String col) {
-        return "sum(" + col + ") as " + col;
+        return result;
     }
     /**
      * 处理结果集
+     *
      * @param rs
      * @return
      * @throws SQLException
      */
-    private Map parseResultSet(ResultSet rs) throws SQLException {
+    private Map parseResultSetToArray(ResultSet rs) throws SQLException {
+        Map<String, List> result = new HashMap<>();
+        result.put(COLUMN, new ArrayList<String>());
+        result.put(DATA, new ArrayList<List>());
+
         ResultSetMetaData metaData = rs.getMetaData();
         int columnSize = metaData.getColumnCount();
         for (int i = 1; i <= columnSize; i++) {
-            System.out.print(metaData.getColumnName(i));
-            System.out.print("\t\t");
+            result.get(COLUMN).add(metaData.getColumnName(i));
         }
         while (rs.next()) {
+            List<String> list = new ArrayList<>();
             for (int i = 1; i <= columnSize; i++) {
-                System.out.print(rs.getString(i));
-                System.out.print("\t\t");
+                list.add(rs.getString(i));
             }
-            System.out.println();
+            result.get(DATA).add(list);
         }
-        return null;
+        return result;
+    }
+
+    private Map parseResultSetToMaprs(ResultSet rs) throws SQLException {
+        Map<String, List> result = new HashMap<>();
+        result.put(DATA, new ArrayList<Map<String, String>>());
+
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnSize = metaData.getColumnCount();
+        for (int i = 1; i <= columnSize; i++) {
+            result.get(COLUMN).add(metaData.getColumnName(i));
+        }
+        while (rs.next()) {
+            Map<String, String> map = new HashMap<>();
+            for (int i = 1; i <= columnSize; i++) {
+                map.put(metaData.getColumnName(i), rs.getString(i));
+            }
+            result.get(DATA).add(map);
+        }
+        return result;
     }
 
     /**
      * 获取freemark 模板
+     *
      * @param templateName
      * @param param
      * @return
      */
-    private String getFreeMarkTemplate(String templateName, Map<String, Object> param){
+    private String getFreeMarkTemplate(String templateName, Map<String, Object> param) {
         Configuration cfg = new Configuration();
         try {
-            cfg.setClassForTemplateLoading(this.getClass(),"/freemark");
+            cfg.setClassForTemplateLoading(this.getClass(), "/freemark");
 //            cfg.setDirectoryForTemplateLoading(new File("classpath:freemark"));
             Template template = cfg.getTemplate(templateName, "utf-8");
 
@@ -149,15 +156,16 @@ public class BaseService {
 
     /**
      * 将 siteIds 转化为 1,2,3
-     * @param dqp
+     *
+     * @param
      * @return
      */
-    private String getSiteIds(DataQueryParam dqp){
+    private String getSiteIds(List list) {
         StringBuffer sb = new StringBuffer();
-        dqp.getSiteIdList().stream().forEach(e ->{
+        list.stream().forEach(e -> {
             sb.append(e).append(",");
         });
-        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 }

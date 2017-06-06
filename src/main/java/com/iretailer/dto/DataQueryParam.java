@@ -18,7 +18,7 @@ public class DataQueryParam {
     GroupBy groupBy = new GroupBy();
     Map<String, Integer> sortBy = new HashMap<>();
     List<Integer> limit;
-
+    Integer returnType = 1;
 
     public List<String> getDataFields() {
         return dataFields;
@@ -92,5 +92,13 @@ public class DataQueryParam {
 
     public void setSiteZoneList(List<Integer> siteZoneList) {
         this.siteZoneList = siteZoneList;
+    }
+
+    public Integer getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(Integer returnType) {
+        this.returnType = returnType;
     }
 }

@@ -19,30 +19,14 @@ public class Constant {
     public static String TIME_FORMAT = "yy-MM-dd HH:mm:ss";
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
     //查询参数配置
-    public static Map<String,Map<String,String>> dataFielsMap = new HashMap<>();
-    public static Map<String,String> groupByMap = new HashMap<>();
-    //查询sql模板
-    public static String SINGLE_TABLE_QUERY_SQL = "select ${column} from ${table} where date_time >= '${st}' and date_time <= '${ed}' group by ${groupBy} ${sortBy}";
-
+    public static Map<String,String> templateMap = new HashMap<>();
 
     @PostConstruct
     private void init(){
-        dataFielsMap.put("exit",MapBuilder.build(new HashMap<String,String>())
-                .map(TABLE,"records_inout_partitioned")
-                .map(COLUMN,"count_out")
-                .get());
-        dataFielsMap.put("enter",MapBuilder.build(new HashMap<String,String>())
-                .map(TABLE,"records_inout_partitioned")
-                .map(COLUMN,"count_in")
-                .get());
-        dataFielsMap.put("passby",MapBuilder.build(new HashMap<String,String>())
-                .map(TABLE,"records_passby_partitioned")
-                .map(COLUMN,"count_passby")
-                .get());
-
-        groupByMap = MapBuilder.build(new HashMap<String,String>())
-                .map("All","date_time")
-                .map("0","date").map("5","_5").map("10","_10").map("15","_15").map("30","_30")
+        templateMap = MapBuilder.build(new HashMap())
+                .map("count_in","inout.ftl").map("count_out","inout.ftl")
+                .map("count_passby","passby.ftl")
+                .map("count_sales","sale.ftl").map("count_goods","sale.ftl").map("count_trades","sale.ftl")
                 .get();
     }
     public static String timeFormat(Long l){

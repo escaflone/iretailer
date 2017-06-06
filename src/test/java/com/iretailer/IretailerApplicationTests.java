@@ -24,11 +24,11 @@ public class IretailerApplicationTests {
 	public void testBaseService(){
 		DataQueryParam dqp = new DataQueryParam();
 
-		dqp.getDataFields().add("enter");
+		dqp.getDataFields().add("count_in");
 		dqp.setStartTime(1479600000000l);//2016-11-26
 		dqp.setEndTime(1480550400000l);//2016-12-01
 		dqp.getGroupBy().setPeriod("All");
-		dqp.getSortBy().put("enter",1);
+//		dqp.getSortBy().put("enter",1);
 		dqp.setSiteIdList(Arrays.asList(new Integer[] {36}));
 
 		baseService.query(dqp);
