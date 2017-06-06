@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +21,7 @@ public class BaseController {
     BaseService baseService;
 
     @RequestMapping(value="/query" , method = RequestMethod.POST)
-    public Map query(@RequestBody DataQueryParam dqp){
+    public List query(@RequestBody DataQueryParam dqp){
         return baseService.query(dqp);
     }
 }

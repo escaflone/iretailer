@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by clat on 2017/5/8.
  */
-public class DataQueryParam {
+public class DataQueryParam implements Cloneable{
     List<String> dataFields = new ArrayList<>();
     List<Integer> siteIdList = new ArrayList<>();
     List<Integer> siteZoneList = new ArrayList<>();
@@ -19,7 +19,11 @@ public class DataQueryParam {
     Map<String, Integer> sortBy = new HashMap<>();
     List<Integer> limit;
     Integer returnType = 1;
-
+    List<String> relations = new ArrayList<>();
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
     public List<String> getDataFields() {
         return dataFields;
     }
@@ -100,5 +104,13 @@ public class DataQueryParam {
 
     public void setReturnType(Integer returnType) {
         this.returnType = returnType;
+    }
+
+    public List<String> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(List<String> relations) {
+        this.relations = relations;
     }
 }

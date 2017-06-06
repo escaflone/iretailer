@@ -30,8 +30,22 @@ public class BaseService {
     private static String DATA = "data";
 
 
-    public Map query(DataQueryParam dqp) {
-        return handler(dqp);
+    public List query(DataQueryParam dqp) {
+        List<Map> result = new ArrayList<>();
+        result.add(handler(dqp));
+        for(String str : dqp.getRelations()){//处理时间同比
+            DataQueryParam _dqp = null;
+            try {
+                _dqp = (DataQueryParam)dqp.clone();
+                //TODO 处理时间变化
+//            _dqp.setStartTime();
+//            _dqp.setEndTime();
+                result.add(handler(_dqp));
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
     private Map handler(DataQueryParam dqp) {
