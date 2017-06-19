@@ -48,11 +48,11 @@
 		<property name="configLocation" value="classpath:mybatis/iretailer-mybatis-config.xml" />
 		<property name="mapperLocations"
 			value="classpath:mybatis/mappers/*.xml" />
-	</bean>-->
+	</bean>
 
-	<!-- 3. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory
-		basePackage:指定sql映射文件/接口所在的包（自动扫描） -->
-	<!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	&lt;!&ndash; 3. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory
+		basePackage:指定sql映射文件/接口所在的包（自动扫描） &ndash;&gt;
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.iretailer.dao"></property>
 		&lt;!&ndash; <property name="sqlSessionFactory" ref="sqlSessionFactory"> &ndash;&gt;
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory">

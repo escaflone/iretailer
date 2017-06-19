@@ -27,11 +27,11 @@ and op.fk_site_id= s_z.fk_site_id
 and records.date = op.date
 and records.time >= op.start_time
 and records.time <op.end_time
-and records.date_time <= '${ed}'
-and records.date_time >= '${st}'
+<#--and records.date_time <= '${ed}'
+and records.date_time >= '${st}'-->
 <#-- and s_z.type = 0-->
 <#include "site_where.ftl"/>
 group by
 <#include "site_column.ftl"/>
-<#include "date_groupby.ftl"/>
+_d
 <#include "limit.ftl"/>

@@ -17,7 +17,7 @@ public class DataQueryParam implements Cloneable{
     String zoneTypeId;
     GroupBy groupBy = new GroupBy();
     Map<String, Integer> sortBy = new HashMap<>();
-    List<Integer> limit;
+    List<Integer> limit = new ArrayList<>();
     Integer returnType = 1;
     List<String> relations = new ArrayList<>();
     @Override

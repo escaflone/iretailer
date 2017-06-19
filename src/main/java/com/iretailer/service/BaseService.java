@@ -8,6 +8,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.*;
 import java.util.*;
+
+import static com.iretailer.util.Constant.calMap;
 
 /**
  * Created by clat on 2017/5/8.
@@ -35,24 +38,29 @@ public class BaseService {
         result.add(handler(dqp));
         for(String str : dqp.getRelations()){//处理时间同比
             DataQueryParam _dqp = null;
-            try {
-                _dqp = (DataQueryParam)dqp.clone();
-                //TODO 处理时间变化
-//            _dqp.setStartTime();
-//            _dqp.setEndTime();
-                result.add(handler(_dqp));
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
+            BeanUtils.copyProperties(_dqp,dqp);
+//          _dqp = (DataQueryParam)dqp.clone();
+            //TODO 处理时间变化
+//          _dqp.setStartTime();
+//          _dqp.setEndTime();
+            result.add(handler(_dqp));
         }
         return result;
     }
 
     private Map handler(DataQueryParam dqp) {
         Map<String, String> columnsMap = new HashMap<>();
-        String templateName = null;
+//        String templateName = null;
         for(String e : dqp.getDataFields()){
-            if(templateName == null) templateName = Constant.templateMap.get(e);
+//            if(templateName == null) templateName = Constant.templateMap.get(e);
+            /**
+             * 添加需要额外计算的指标
+             * */
+            if(calMap.get(e)!=null){
+                for(String need : calMap.get(e).getNeed()){
+                    columnsMap.put(need,"");
+                }
+            }
             columnsMap.put(e, "");
         }
         String st = Constant.timeFormat(dqp.getStartTime());
@@ -78,7 +86,7 @@ public class BaseService {
         }
 
 
-        String sql = getFreeMarkTemplate(templateName, params);
+        String sql = getFreeMarkTemplate("result.ftl", params);
         System.out.println(sql);
         Map result = query(sql,dqp.getReturnType());
         return result;
