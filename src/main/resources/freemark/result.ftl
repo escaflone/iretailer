@@ -138,16 +138,18 @@ left join (
     and `passby`.id = `sale`.id
     </#if>
 </#if>
+<#if site_type ??>
+and site_tag.`type` = '${site_type}'
+</#if>
 <#--site 或 site zone 表关联 end-->
 where timeline.date_time <= '${ed}'
 and timeline.date_time >= '${st}'
 and timeline.type = '${groupBy}'
-<#if site_type ??>
-and site_tag.`type` = '${site_type}'
-</#if>
 group by
 <#if location ??>
 ${location},
+<#elseif site_type ??>
+site_tag._value,
 <#elseif siteid ??>
 site_id,
 <#elseif sitezoneid ??>
