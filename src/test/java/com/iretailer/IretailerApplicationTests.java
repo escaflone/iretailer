@@ -31,7 +31,8 @@ public class IretailerApplicationTests {
 		dqp.getGroupBy().setPeriod("10");
 //		dqp.getSortBy().put("enter",1);
 		dqp.setSiteIdList(Arrays.asList(new Integer[] {36,37}));
-		dqp.setLocation("quare_name");
+//		dqp.setLocation("quare_name");
+		dqp.setSiteType("业态");
 		baseService.query(dqp);
 	}
 }

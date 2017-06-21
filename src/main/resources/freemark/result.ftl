@@ -42,6 +42,8 @@ count_trades,
 <#--group by 用的 site id , site zone id 获取 start-->
 <#if location ??>
     location_tmp.${location},
+<#elseif site_type ??>
+    site_tag._value sitetype,
 <#else>
     <#if column.count_in ?? || column.count_out ??>
         <#if siteid ??>
@@ -88,7 +90,7 @@ left join (
     <#include "sale.ftl"/>
 ) `sale` on `sale`._d = <#include "timelineDate.ftl"/>
 </#if>
-<#--location 列是否需要 start-->
+<#--location 或 site type 列是否需要 start-->
 <#if location ??>
     inner join site on site.id =
     <#if (column.count_in ?? || column.count_out ??)>
@@ -99,8 +101,17 @@ left join (
         `sale`.fk_site_id
     </#if>
     inner join location_tmp on site.fk_location_id = location_tmp.id
+<#elseif site_type ??>
+    inner join site_tag on site_tag.fk_site_id =
+    <#if (column.count_in ?? || column.count_out ??)>
+    `inout`.fk_site_id
+    <#elseif column.count_passby ??>
+    `passby`.fk_site_id
+    <#elseif (column.count_sales ?? || column.count_goods ?? || column.count_trades ??)>
+    `sale`.fk_site_id
+    </#if>
 </#if>
-<#--location 列是否需要 end-->
+<#--location 或 site type 列是否需要 end-->
 <#--site 或 site zone 表关联 start-->
 <#if (column.count_in ?? || column.count_out ??) && column.count_passby ?? && (column.count_sales ?? || column.count_goods ?? || column.count_trades ??)>
     <#if siteid ??>
@@ -131,7 +142,9 @@ left join (
 where timeline.date_time <= '${ed}'
 and timeline.date_time >= '${st}'
 and timeline.type = '${groupBy}'
-
+<#if site_type ??>
+and site_tag.`type` = '${site_type}'
+</#if>
 group by
 <#if location ??>
 ${location},

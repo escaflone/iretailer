@@ -73,6 +73,7 @@ public class BaseService {
         params.put("st", st);
         params.put("ed", ed);
         params.put("groupBy", groupBy);
+
         if(dqp.getSiteIdList().size() > 0) {
             params.put("siteid", getSiteIds(dqp.getSiteIdList()));
         }else if(dqp.getSiteZoneList().size() > 0) {
@@ -83,6 +84,7 @@ public class BaseService {
         }else if(dqp.getSiteType() != null){
             params.put("site_type",dqp.getSiteType());
         }
+
         if(dqp.getLimit().size()==2){
             List<Integer> list= dqp.getLimit();
             params.put("limit",list.get(0)+","+list.get(1));
