@@ -10,11 +10,18 @@ import java.util.Map;
  */
 public class DataQueryParam implements Cloneable{
     List<String> dataFields = new ArrayList<>();
+
+    /**
+     * 互斥
+     * */
     List<Integer> siteIdList = new ArrayList<>();
     List<Integer> siteZoneList = new ArrayList<>();
+    String location;
+    String siteType;
+
+
     Long startTime;
     Long endTime;
-    String zoneTypeId;
     GroupBy groupBy = new GroupBy();
     Map<String, Integer> sortBy = new HashMap<>();
     List<Integer> limit = new ArrayList<>();
@@ -47,15 +54,6 @@ public class DataQueryParam implements Cloneable{
     public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
-
-    public String getZoneTypeId() {
-        return zoneTypeId;
-    }
-
-    public void setZoneTypeId(String zoneTypeId) {
-        this.zoneTypeId = zoneTypeId;
-    }
-
 
     public Map<String, Integer> getSortBy() {
         return sortBy;
@@ -112,5 +110,21 @@ public class DataQueryParam implements Cloneable{
 
     public void setRelations(List<String> relations) {
         this.relations = relations;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getSiteType() {
+        return siteType;
+    }
+
+    public void setSiteType(String siteType) {
+        this.siteType = siteType;
     }
 }

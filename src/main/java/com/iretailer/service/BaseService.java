@@ -75,8 +75,13 @@ public class BaseService {
         params.put("groupBy", groupBy);
         if(dqp.getSiteIdList().size() > 0) {
             params.put("siteid", getSiteIds(dqp.getSiteIdList()));
-        }else{
+        }else if(dqp.getSiteZoneList().size() > 0) {
             params.put("sitezoneid",getSiteIds(dqp.getSiteZoneList()));
+        }
+        if(dqp.getLocation() != null){
+            params.put("location",dqp.getLocation());
+        }else if(dqp.getSiteType() != null){
+            params.put("site_type",dqp.getSiteType());
         }
         if(dqp.getLimit().size()==2){
             List<Integer> list= dqp.getLimit();
@@ -140,6 +145,7 @@ public class BaseService {
 
         ResultSetMetaData metaData = rs.getMetaData();
         int columnSize = metaData.getColumnCount();
+        //TODO 如果结果集为空 做判断
         for (int i = 1; i <= columnSize; i++) {
             result.get(COLUMN).add(metaData.getColumnName(i));
         }

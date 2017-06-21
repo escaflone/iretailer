@@ -1,5 +1,5 @@
 <#if groupBy =  'All'>
-records.date_time _d
+
 <#elseif groupBy = '0' >
 records.date _d
 <#elseif groupBy = '5' >
