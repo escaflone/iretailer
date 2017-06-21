@@ -34,4 +34,3 @@ and records.date_time >= '${st}'-->
 group by
 <#include "site_column.ftl"/>
 _d
-<#include "limit.ftl"/>

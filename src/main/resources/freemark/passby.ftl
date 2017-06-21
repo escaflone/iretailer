@@ -22,4 +22,3 @@ and s_z.type = 0
 group by
 <#include "site_column.ftl"/>
 _d
-<#include "limit.ftl"/>
