@@ -1,3 +1,21 @@
+<#--变量申明区域 start -->
+<#if column.count_in ?? || column.count_out ??>
+    <#assign v_table = "`inout`">
+<#elseif column.count_passby ??>
+    <#assign v_table = "`passby`">
+<#elseif column.count_sales ?? || column.count_goods ?? || column.count_trades ??>
+    <#assign v_table = "`sale`">
+</#if>
+<#if location ??>
+    <#assign v_id = "${location}">
+<#elseif site_type ??>
+    <#assign v_id = "sitetype">
+<#elseif siteid ??>
+    <#assign v_id = "sid">
+<#elseif sitezoneid ??>
+    <#assign v_id = "szid">
+</#if>
+<#--变量申明区域 end -->
 select
 <#-- 普通指标 start-->
 <#if column.count_in ??>
@@ -39,33 +57,9 @@ count_trades,
 (count_in/area) uaa,
 </#if>
 <#--计算指标 end-->
-<#--group by 用的 site id , site zone id 获取 start-->
-<#if location ??>
-    location_tmp.${location},
-<#elseif site_type ??>
-    site_tag._value sitetype,
-<#else>
-    <#if column.count_in ?? || column.count_out ??>
-        <#if siteid ??>
-        `inout`.fk_site_id site_id,
-        <#elseif sitezoneid ??>
-        `inout`.id site_zone_id,
-        </#if>
-    <#elseif column.count_passby ??>
-        <#if siteid ??>
-        `passby`.fk_site_id site_id,
-        <#elseif sitezoneid ??>
-        `passby`.id site_zone_id,
-        </#if>
-    <#elseif column.count_sales ?? || column.count_goods ?? || column.count_trades ??>
-        <#if siteid ??>
-        `sale`.fk_site_id site_id,
-        <#elseif sitezoneid ??>
-        `sale`.id site_zone_id,
-        </#if>
-    </#if>
-</#if>
-<#--group by 用的 site id , site zone id 获取 end-->
+<#--group by 用的 site id , site zone id ，业态，location 获取 start-->
+    ${v_table}.${v_id},
+<#--group by 用的 site id , site zone id ，业态，location 获取 end-->
 <#--时间分辨, 到时分秒 ，还是到天-->
 <#if groupBy != 'ALL'>
     <#include "timelineDate.ftl"/>
@@ -146,15 +140,7 @@ where timeline.date_time <= '${ed}'
 and timeline.date_time >= '${st}'
 and timeline.type = '${groupBy}'
 group by
-<#if location ??>
-${location},
-<#elseif site_type ??>
-site_tag._value,
-<#elseif siteid ??>
-site_id,
-<#elseif sitezoneid ??>
-site_zone_id,
-</#if>
+${v_id},
 <#if groupBy != 'ALL'>
     <#include "timelineDate.ftl"/>
 </#if>
