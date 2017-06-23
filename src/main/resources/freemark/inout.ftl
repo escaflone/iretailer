@@ -22,7 +22,11 @@ end
 <#include "column/date_column.ftl"/>
 from records_inout_partitioned records,
 <#include "from/from.ftl"/>
+
 where 1=1
+
 <#include "where/common_where.ftl"/>
+and s_z.type = 0
 group by
+
 <#include "groupby/common_groupby.ftl"/>

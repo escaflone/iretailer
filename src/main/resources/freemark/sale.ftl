@@ -20,7 +20,11 @@ count_trades
 from
 records_sales_partitioned records,
 <#include "from/from.ftl"/>
+
 where 1=1
+
 <#include "where/common_where.ftl"/>
+and s_z.type = 7
 group by
+
 <#include "groupby/common_groupby.ftl"/>
