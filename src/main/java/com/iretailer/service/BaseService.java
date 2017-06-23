@@ -93,7 +93,7 @@ public class BaseService {
         }
 
 
-        String sql = getFreeMarkTemplate("result.ftl", params);
+        String sql = getFreeMarkTemplate("3table_join/fulljoin.ftl", params);
         System.out.println(sql);
         Map result = query(sql,dqp.getReturnType());
         return result;

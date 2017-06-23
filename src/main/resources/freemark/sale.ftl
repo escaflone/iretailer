@@ -1,19 +1,19 @@
 select
-<#if column.count_sales ??>
+<#--<#if column.count_sales ??>-->
 sum(
 count_sales
 ) as count_sales,
-</#if>
-<#if column.count_goods ??>
+<#--</#if>-->
+<#--<#if column.count_goods ??>-->
 sum(
 count_goods
 ) as count_goods,
-</#if>
-<#if column.count_trades ??>
+<#--</#if>-->
+<#--<#if column.count_trades ??>-->
 sum(
 count_trades
 ) as count_trades,
-</#if>
+<#--</#if>-->
 <#include "column/location_sitetype_column.ftl"/>
 <#include "column/site_column.ftl"/>
 <#include "column/date_column.ftl"/>

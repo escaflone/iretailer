@@ -1,5 +1,4 @@
 <#if groupBy =  'All'>
-
 <#elseif groupBy = '0' >
 records.date _d
 <#elseif groupBy = '5' >

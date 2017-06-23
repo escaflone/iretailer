@@ -10,6 +10,7 @@ records_passby_partitioned records,
 <#include "from/from.ftl"/>
 
 where 1=1
+
 <#include "where/common_where.ftl"/>
 and s_z.type = 2
 group by
