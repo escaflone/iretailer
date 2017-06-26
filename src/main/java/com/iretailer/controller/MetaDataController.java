@@ -1,5 +1,6 @@
 package com.iretailer.controller;
 
+import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 import com.iretailer.service.MetaDataService;
 import com.iretailer.service.UserService;
@@ -16,14 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value="meta")
 public class MetaDataController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private MetaDataService metaDataService;
 
     @RequestMapping(value="" , method = RequestMethod.GET)
-    public List<User> query(User user){
-        return userService.query();
+    public List<Site> query(){
+        return metaDataService.query();
     }
 }

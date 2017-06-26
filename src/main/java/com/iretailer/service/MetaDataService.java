@@ -2,6 +2,7 @@ package com.iretailer.service;
 
 import com.iretailer.dao.MetaDataMapper;
 import com.iretailer.dao.UserMapper;
+import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,7 @@ public class MetaDataService {
     @Autowired
     private MetaDataMapper metaDataMapper;
 
+    public List<Site> query() {
+        return metaDataMapper.query();
+    }
 }

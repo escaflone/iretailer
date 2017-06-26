@@ -1,46 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iretailer.dao.UserMapper">
-    <!--<resultMap id="BaseResultMap" type="com.iretailer.dto.Site">
-        <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
-        <result column="type" property="type" jdbcType="Integer"/>
-        <result column="rank" property="rank" jdbcType="Integer"/>
-        <result column="disabled" property="disabled" jdbcType="Integer"/>
-        <result column="_name" property="name" jdbcType="VARCHAR"/>
-        <result column="display_name" property="displayName" jdbcType="VARCHAR"/>
-        <result column="operation_acreage" property="operationAcreage" jdbcType="Integer"/>
-        <result column="description" property="description" jdbcType="VARCHAR"/>
-        <result column="coordinate" property="coordinate" jdbcType="VARCHAR"/>
-        <result column="address" property="address" jdbcType="VARCHAR"/>
+<mapper namespace="com.iretailer.dao.MetaDataMapper">
+    <resultMap id="BaseResultMap" type="com.iretailer.dto.Site">
+        <id column="s_id" property="id" jdbcType="BIGINT"/>
+        <result column="s_parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="s_type" property="type" jdbcType="INTEGER"/>
+        <result column="s_rank" property="rank" jdbcType="INTEGER"/>
+        <result column="s_disabled" property="disabled" jdbcType="INTEGER"/>
+        <result column="s_name" property="name" jdbcType="VARCHAR"/>
+        <result column="s_display_name" property="displayName" jdbcType="VARCHAR"/>
+        <result column="s_operation_acreage" property="operationAcreage" jdbcType="INTEGER"/>
+        <result column="s_description" property="description" jdbcType="VARCHAR"/>
+        <result column="s_coordinate" property="coordinate" jdbcType="VARCHAR"/>
+        <result column="s_address" property="address" jdbcType="VARCHAR"/>
         <collection property="siteZoneList" javaType="java.util.List" ofType="com.iretailer.dto.SiteZone">
-            <id column="id" property="id" jdbcType="BIGINT"/>
-            <id column="display_name" property="displayName" jdbcType="VARCHAR"/>
-            <id column="type" property="type" jdbcType="VARCHAR"/>
-            <id column="disabled" property="disabled" jdbcType="Integer"/>
-            <id column="rank" property="rank" jdbcType="Integer"/>
-            <id column="coordinate" property="coordinate" jdbcType="VARCHAR"/>
-            <id column="description" property="description" jdbcType="VARCHAR"/>
+            <id column="sz_id" property="id" jdbcType="BIGINT"/>
+            <id column="sz_display_name" property="displayName" jdbcType="VARCHAR"/>
+            <id column="sz_type" property="type" jdbcType="VARCHAR"/>
+            <id column="sz_disabled" property="disabled" jdbcType="INTEGER"/>
+            <id column="sz_rank" property="rank" jdbcType="INTEGER"/>
+            <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
+            <id column="sz_description" property="description" jdbcType="VARCHAR"/>
         </collection>
         <association property="location" javaType="com.iretailer.dto.Location">
-            <result column="id" property="id" jdbcType="BIGINT"/>
-            <result column="quare_id" property="quareId" jdbcType="Integer"/>
-            <result column="quare_name" property="quareName" jdbcType="VARCHAR"/>
-            <result column="province_id" property="provinceId" jdbcType="Integer"/>
-            <result column="province_name" property="name" jdbcType="VARCHAR"/>
-            <result column="_name" property="provinceName" jdbcType="VARCHAR"/>
-            <result column="city_id" property="cityId" jdbcType="Integer"/>
-            <result column="_name" property="name" jdbcType="VARCHAR"/>
-            <result column="city_name" property="cityName" jdbcType="VARCHAR"/>
-            <result column="county_id" property="countryId" jdbcType="Integer"/>
-            <result column="county_name" property="countryName" jdbcType="VARCHAR"/>
+            <result column="l_id" property="id" jdbcType="BIGINT"/>
+            <result column="l_quare_id" property="quareId" jdbcType="INTEGER"/>
+            <result column="l_quare_name" property="quareName" jdbcType="VARCHAR"/>
+            <result column="l_province_id" property="provinceId" jdbcType="INTEGER"/>
+            <result column="l_province_name" property="provinceName" jdbcType="VARCHAR"/>
+            <result column="l_city_id" property="cityId" jdbcType="INTEGER"/>
+            <result column="l_city_name" property="cityName" jdbcType="VARCHAR"/>
+            <result column="l_county_name" property="countryId" jdbcType="INTEGER"/>
+            <result column="l_county_name" property="countryName" jdbcType="VARCHAR"/>
         </association>
-    </resultMap>-->
+    </resultMap>
 
-    <!--<sql id="Base_Column_List">
-        
+    <sql id="Base_Column_List">
+
     </sql>
     <select id="query" resultMap="BaseResultMap">
+        select
+	site.id as s_id,
+	site.type as s_type,
+	site.rank as s_rank,
+	site.parent_id as s_parent_id,
+	site.disabled as s_disabled,
+	site._name as s_name,
+	site.display_name as s_display_name,
+	site.operation_acreage as s_operation_acreage,
+	site.description as s_description,
+	site.coordinate as s_coordinate,
+	site.address as s_address,
 
-    </select>-->
+	site_zone.id as sz_id,
+	site_zone.display_name as sz_display_name,
+	site_zone.type as sz_type,
+	site_zone.disabled as sz_disabled,
+	site_zone.rank as sz_rank,
+	site_zone.coordinate as sz_coordinate,
+	site_zone.description as sz_description,
+
+	location_tmp.id as l_id,
+	location_tmp.quare_id as l_quare_id,
+location_tmp.quare_name as l_quare_name,
+location_tmp.province_id as l_province_id,
+location_tmp.province_name as l_province_name,
+location_tmp.city_id as l_city_id,
+location_tmp.city_name as l_city_name,
+location_tmp.county_id as l_county_id,
+location_tmp.county_name as l_county_name
+
+
+
+from site
+left join site_zone on site.id = site_zone.fk_site_id
+left join location_tmp on location_tmp.id = site.fk_location_id
+    </select>
 </mapper>

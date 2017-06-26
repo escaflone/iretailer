@@ -1,8 +1,10 @@
 package com.iretailer;
 
 import com.iretailer.dto.DataQueryParam;
+import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 import com.iretailer.service.BaseService;
+import com.iretailer.service.MetaDataService;
 import com.iretailer.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,8 @@ public class IretailerApplicationTests {
 	BaseService baseService;
 	@Autowired
 	UserService userService;
-
+	@Autowired
+	private MetaDataService metaDataService;
 //	@Test
 //	public void contextLoads() {}
 
@@ -69,5 +72,10 @@ public class IretailerApplicationTests {
 	public void testUserService_queryById(){
 		User user = userService.queryById(8);
 		System.out.println(user);
+	}
+	@Test
+	public void testMetaService(){
+		List<Site> list = metaDataService.query();
+		System.out.println(list.size());
 	}
 }
