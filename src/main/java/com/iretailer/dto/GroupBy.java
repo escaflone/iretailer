@@ -4,7 +4,7 @@ package com.iretailer.dto;
  * Created by clat on 2017/5/23.
  */
 public class GroupBy {
-    private String period = "0";
+    private String period = "d";
     private String domain;
 
     public String getPeriod() {

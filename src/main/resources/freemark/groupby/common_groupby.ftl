@@ -1,7 +1,5 @@
-<#if siteid ??>
+<#if siteid ?? || sitezoneid ?? >
 sid,
-<#elseif sitezoneid ??>
-szid,
 </#if>
 
 <#if location ??>

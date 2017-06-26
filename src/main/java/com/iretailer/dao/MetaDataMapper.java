@@ -7,12 +7,6 @@ import java.util.List;
 /**
  * Created by wubin on 2017/6/23.
  */
-public interface UserMapper {
+public interface MetaDataMapper {
     public List<User> query();
-
-    public int create(User user);
-
-    User queryById(int id);
-
-    User queryUserByUserNameAndPassword(User user);
 }

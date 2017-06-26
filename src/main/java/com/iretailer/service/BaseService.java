@@ -93,7 +93,7 @@ public class BaseService {
         }
 
 
-        String sql = getFreeMarkTemplate("3table_join/fulljoin.ftl", params);
+        String sql = getFreeMarkTemplate("result_1table.ftl", params);
         System.out.println(sql);
         Map result = query(sql,dqp.getReturnType());
         return result;
@@ -114,6 +114,26 @@ public class BaseService {
         }
         return result;
     }
+    private Map parseResultSetToMaprs(ResultSet rs) throws SQLException {
+        Map<String, List> result = new HashMap<>();
+        result.put(DATA, new ArrayList<Map<String, String>>());
+
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnSize = metaData.getColumnCount();
+        //TODO 如果结果集为空 做判断
+        for (int i = 1; i <= columnSize; i++) {
+            result.get(COLUMN).add(metaData.getColumnName(i));
+        }
+        while (rs.next()) {
+            Map<String, String> map = new HashMap<>();
+            for (int i = 1; i <= columnSize; i++) {
+                map.put(metaData.getColumnName(i), rs.getString(i));
+            }
+            result.get(DATA).add(map);
+        }
+        return result;
+    }
+
     /**
      * 处理结果集
      *
@@ -137,26 +157,6 @@ public class BaseService {
                 list.add(rs.getString(i));
             }
             result.get(DATA).add(list);
-        }
-        return result;
-    }
-
-    private Map parseResultSetToMaprs(ResultSet rs) throws SQLException {
-        Map<String, List> result = new HashMap<>();
-        result.put(DATA, new ArrayList<Map<String, String>>());
-
-        ResultSetMetaData metaData = rs.getMetaData();
-        int columnSize = metaData.getColumnCount();
-        //TODO 如果结果集为空 做判断
-        for (int i = 1; i <= columnSize; i++) {
-            result.get(COLUMN).add(metaData.getColumnName(i));
-        }
-        while (rs.next()) {
-            Map<String, String> map = new HashMap<>();
-            for (int i = 1; i <= columnSize; i++) {
-                map.put(metaData.getColumnName(i), rs.getString(i));
-            }
-            result.get(DATA).add(map);
         }
         return result;
     }

@@ -1,6 +1,7 @@
 package com.iretailer.controller;
 
 import com.iretailer.dto.User;
+import com.iretailer.service.MetaDataService;
 import com.iretailer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,25 +14,16 @@ import java.util.List;
  * Created by wubin on 2017/6/19.
  */
 @RestController
-@RequestMapping(value="user")
-public class UserController {
+@RequestMapping(value="meta")
+public class MetaDataController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MetaDataService metaDataService;
 
     @RequestMapping(value="" , method = RequestMethod.GET)
     public List<User> query(User user){
         return userService.query();
-    }
-
-    @RequestMapping(value="", method = RequestMethod.POST)
-    public User create(User user){
-        int id = userService.create(user);
-        return user;
-    }
-
-    @RequestMapping(value="/login", method = RequestMethod.POST)
-    public User login(User user){
-//        int id = userService.queryUserByUserNameAndPassword(user);
-        return user;
     }
 }
