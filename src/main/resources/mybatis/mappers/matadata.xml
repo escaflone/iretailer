@@ -22,7 +22,7 @@
             <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
             <id column="sz_description" property="description" jdbcType="VARCHAR"/>
         </collection>
-        <association property="location" javaType="com.iretailer.dto.Location">
+        <!--<association property="location" javaType="com.iretailer.dto.Location">
             <result column="l_id" property="id" jdbcType="BIGINT"/>
             <result column="l_quare_id" property="quareId" jdbcType="INTEGER"/>
             <result column="l_quare_name" property="quareName" jdbcType="VARCHAR"/>
@@ -32,7 +32,7 @@
             <result column="l_city_name" property="cityName" jdbcType="VARCHAR"/>
             <result column="l_county_name" property="countryId" jdbcType="INTEGER"/>
             <result column="l_county_name" property="countryName" jdbcType="VARCHAR"/>
-        </association>
+        </association>-->
     </resultMap>
 
     <sql id="Base_Column_List">
