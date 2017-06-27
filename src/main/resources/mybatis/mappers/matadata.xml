@@ -13,15 +13,6 @@
         <result column="s_description" property="description" jdbcType="VARCHAR"/>
         <result column="s_coordinate" property="coordinate" jdbcType="VARCHAR"/>
         <result column="s_address" property="address" jdbcType="VARCHAR"/>
-        <collection property="siteZoneList" javaType="java.util.List" ofType="com.iretailer.dto.SiteZone">
-            <id column="sz_id" property="id" jdbcType="BIGINT"/>
-            <id column="sz_display_name" property="displayName" jdbcType="VARCHAR"/>
-            <id column="sz_type" property="type" jdbcType="VARCHAR"/>
-            <id column="sz_disabled" property="disabled" jdbcType="INTEGER"/>
-            <id column="sz_rank" property="rank" jdbcType="INTEGER"/>
-            <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
-            <id column="sz_description" property="description" jdbcType="VARCHAR"/>
-        </collection>
         <association property="location" javaType="com.iretailer.dto.Location">
             <result column="l_id" property="id" jdbcType="BIGINT"/>
             <result column="l_quare_id" property="quareId" jdbcType="INTEGER"/>
@@ -33,6 +24,15 @@
             <result column="l_county_name" property="countryId" jdbcType="INTEGER"/>
             <result column="l_county_name" property="countryName" jdbcType="VARCHAR"/>
         </association>
+        <collection property="siteZoneList" javaType="java.util.List" ofType="com.iretailer.dto.SiteZone">
+            <id column="sz_id" property="id" jdbcType="BIGINT"/>
+            <id column="sz_display_name" property="displayName" jdbcType="VARCHAR"/>
+            <id column="sz_type" property="type" jdbcType="VARCHAR"/>
+            <id column="sz_disabled" property="disabled" jdbcType="INTEGER"/>
+            <id column="sz_rank" property="rank" jdbcType="INTEGER"/>
+            <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
+            <id column="sz_description" property="description" jdbcType="VARCHAR"/>
+        </collection>
     </resultMap>
 
     <sql id="Base_Column_List">
