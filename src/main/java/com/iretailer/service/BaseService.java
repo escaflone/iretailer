@@ -37,12 +37,12 @@ public class BaseService {
     public List query(DataQueryParam dqp) {
         List<Map> result = new ArrayList<>();
         result.add(handler(dqp));
-        for(TimeRelation str : dqp.getRelations()){//处理时间同比
+        for(Long offset : dqp.getRelations()){//处理时间同比
             DataQueryParam _dqp = new DataQueryParam();
             BeanUtils.copyProperties(dqp,_dqp);
             //TODO 处理时间变化
-          _dqp.setStartTime(str.getSt());
-          _dqp.setEndTime(str.getEd());
+          _dqp.setStartTime(dqp.getStartTime()  +  offset);
+          _dqp.setEndTime(dqp.getEndTime()  +  offset);
             result.add(handler(_dqp));
         }
         return result;

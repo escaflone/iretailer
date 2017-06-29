@@ -27,7 +27,7 @@ public class DataQueryParam implements Cloneable{
     Map<String, Integer> sortBy = new HashMap<>();
     List<Integer> limit = new ArrayList<>();
     Integer returnType = 1;
-    List<TimeRelation> relations = new ArrayList<>();
+    List<Long> relations = new ArrayList<>();
 
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -114,11 +114,11 @@ public class DataQueryParam implements Cloneable{
         this.returnType = returnType;
     }
 
-    public List<TimeRelation> getRelations() {
+    public List<Long> getRelations() {
         return relations;
     }
 
-    public void setRelations(List<TimeRelation> relations) {
+    public void setRelations(List<Long> relations) {
         this.relations = relations;
     }
 
