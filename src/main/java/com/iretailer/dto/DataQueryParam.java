@@ -18,6 +18,7 @@ public class DataQueryParam implements Cloneable{
     List<Integer> siteZoneList = new ArrayList<>();
     String location;
     String siteType;
+    Integer split = 1; // 0 不做分组， 1做分组 ， 目标 site 或  site zone
 
     String period = "d";
     Long startTime;
@@ -27,6 +28,7 @@ public class DataQueryParam implements Cloneable{
     List<Integer> limit = new ArrayList<>();
     Integer returnType = 1;
     List<TimeRelation> relations = new ArrayList<>();
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -37,6 +39,14 @@ public class DataQueryParam implements Cloneable{
 
     public void setDataFields(List<String> dataFields) {
         this.dataFields = dataFields;
+    }
+
+    public Integer getSplit() {
+        return split;
+    }
+
+    public void setSplit(Integer split) {
+        this.split = split;
     }
 
     public Long getStartTime() {

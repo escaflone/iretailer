@@ -91,7 +91,7 @@ public class BaseService {
         }else if(dqp.getLimit().size()==1){
             params.put("limit",dqp.getLimit().get(0));
         }
-
+        params.put("split",dqp.getSplit());
 
         String sql = getFreeMarkTemplate("result_1table.ftl", params);
         System.out.println(sql);

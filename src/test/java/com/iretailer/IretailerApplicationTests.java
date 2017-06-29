@@ -43,6 +43,7 @@ public class IretailerApplicationTests {
 		dqp.setStartTime(1479600000000l);//2016-11-26
 		dqp.setEndTime(1480550400000l);//2016-12-01
 		dqp.setPeriod("All");
+//		dqp.setSplit(0);
 //		dqp.getGroupBy().setPeriod("10");
 //		dqp.getSortBy().put("enter",1);
 		dqp.setSiteIdList(Arrays.asList(new Integer[] {35,36,37}));

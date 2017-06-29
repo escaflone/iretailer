@@ -3,10 +3,14 @@
     <#assign v_id = "${location}">
 <#elseif site_type ??>
     <#assign v_id = "sitetype">
-<#elseif siteid ??>
+<#elseif split != 0>
+<#if siteid ??>
     <#assign v_id = "sid">
 <#elseif sitezoneid ??>
     <#assign v_id = "szid">
+</#if>
+<#else>
+    <#assign v_id = "'1'">
 </#if>
 <#--变量申明区域 end -->
 select
@@ -50,7 +54,12 @@ count_trades,
 (count_in/area) uaa,
 </#if>
 <#--计算指标 end-->
+<#if split = 1>
 `records`.${v_id}
+<#else>
+${v_id}
+</#if>
+
 <#--时间分辨, 到时分秒 ，还是到天-->
 <#if groupBy != 'All'>
     ,<#include "column/timelineDate.ftl"/>
