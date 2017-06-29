@@ -2,6 +2,7 @@ package com.iretailer.service;
 
 import com.iretailer.dao.MetaDataMapper;
 import com.iretailer.dao.UserMapper;
+import com.iretailer.dto.Location;
 import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,19 @@ public class MetaDataService {
 
     public List<Site> query() {
         return metaDataMapper.query();
+    }
+
+    public List<Location> queryLocation(){
+        Location root = new Location();
+        root.setId(0l);
+        List<Location> locationList = getLocation(root);
+        return locationList;
+    }
+    private List<Location> getLocation(Location location){
+        List<Location> locationList = metaDataMapper.queryLocation(location.getId());
+        locationList.stream().forEach(e -> {
+            e.setChildren(getLocation(e));
+        });
+        return locationList;
     }
 }

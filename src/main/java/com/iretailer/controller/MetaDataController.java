@@ -15,7 +15,7 @@ import java.util.List;
  * Created by wubin on 2017/6/19.
  */
 @RestController
-@RequestMapping(value="api/meta")
+@RequestMapping(value="apis/meta")
 public class MetaDataController {
 
     @Autowired

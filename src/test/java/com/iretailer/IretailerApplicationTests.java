@@ -1,6 +1,7 @@
 package com.iretailer;
 
 import com.iretailer.dto.DataQueryParam;
+import com.iretailer.dto.Location;
 import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 import com.iretailer.service.BaseService;
@@ -76,6 +77,11 @@ public class IretailerApplicationTests {
 	@Test
 	public void testMetaService(){
 		List<Site> list = metaDataService.query();
+		System.out.println(list.size());
+	}
+	@Test
+	public void testMetaService_queryLocation(){
+		List<Location> list = metaDataService.queryLocation();
 		System.out.println(list.size());
 	}
 }

@@ -19,14 +19,14 @@ public class DataQueryParam implements Cloneable{
     String location;
     String siteType;
 
-
+    String period = "0";
     Long startTime;
     Long endTime;
     GroupBy groupBy = new GroupBy();
     Map<String, Integer> sortBy = new HashMap<>();
     List<Integer> limit = new ArrayList<>();
     Integer returnType = 1;
-    List<String> relations = new ArrayList<>();
+    List<TimeRelation> relations = new ArrayList<>();
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -104,11 +104,11 @@ public class DataQueryParam implements Cloneable{
         this.returnType = returnType;
     }
 
-    public List<String> getRelations() {
+    public List<TimeRelation> getRelations() {
         return relations;
     }
 
-    public void setRelations(List<String> relations) {
+    public void setRelations(List<TimeRelation> relations) {
         this.relations = relations;
     }
 
@@ -126,5 +126,13 @@ public class DataQueryParam implements Cloneable{
 
     public void setSiteType(String siteType) {
         this.siteType = siteType;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
     }
 }

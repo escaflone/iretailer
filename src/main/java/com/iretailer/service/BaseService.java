@@ -1,6 +1,7 @@
 package com.iretailer.service;
 
 import com.iretailer.dto.DataQueryParam;
+import com.iretailer.dto.TimeRelation;
 import com.iretailer.util.Constant;
 import com.iretailer.util.MapBuilder;
 import freemarker.template.Configuration;
@@ -36,13 +37,12 @@ public class BaseService {
     public List query(DataQueryParam dqp) {
         List<Map> result = new ArrayList<>();
         result.add(handler(dqp));
-        for(String str : dqp.getRelations()){//处理时间同比
-            DataQueryParam _dqp = null;
-            BeanUtils.copyProperties(_dqp,dqp);
-//          _dqp = (DataQueryParam)dqp.clone();
+        for(TimeRelation str : dqp.getRelations()){//处理时间同比
+            DataQueryParam _dqp = new DataQueryParam();
+            BeanUtils.copyProperties(dqp,_dqp);
             //TODO 处理时间变化
-//          _dqp.setStartTime();
-//          _dqp.setEndTime();
+          _dqp.setStartTime(str.getSt());
+          _dqp.setEndTime(str.getEd());
             result.add(handler(_dqp));
         }
         return result;
@@ -66,7 +66,7 @@ public class BaseService {
         String st = Constant.timeFormat(dqp.getStartTime());
         String ed = Constant.timeFormat(dqp.getEndTime());
 
-        String groupBy = dqp.getGroupBy().getPeriod();
+        String groupBy = dqp.getPeriod();
 
         Map<String, Object> params = new HashMap<>();
         params.put("column", columnsMap);
@@ -117,7 +117,7 @@ public class BaseService {
     private Map parseResultSetToMaprs(ResultSet rs) throws SQLException {
         Map<String, List> result = new HashMap<>();
         result.put(DATA, new ArrayList<Map<String, String>>());
-
+        result.put(COLUMN, new ArrayList<String>());
         ResultSetMetaData metaData = rs.getMetaData();
         int columnSize = metaData.getColumnCount();
         //TODO 如果结果集为空 做判断

@@ -13,16 +13,7 @@
         <result column="s_description" property="description" jdbcType="VARCHAR"/>
         <result column="s_coordinate" property="coordinate" jdbcType="VARCHAR"/>
         <result column="s_address" property="address" jdbcType="VARCHAR"/>
-        <collection property="siteZoneList" javaType="java.util.List" ofType="com.iretailer.dto.SiteZone">
-            <id column="sz_id" property="id" jdbcType="BIGINT"/>
-            <id column="sz_display_name" property="displayName" jdbcType="VARCHAR"/>
-            <id column="sz_type" property="type" jdbcType="VARCHAR"/>
-            <id column="sz_disabled" property="disabled" jdbcType="INTEGER"/>
-            <id column="sz_rank" property="rank" jdbcType="INTEGER"/>
-            <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
-            <id column="sz_description" property="description" jdbcType="VARCHAR"/>
-        </collection>
-        <!--<association property="location" javaType="com.iretailer.dto.Location">
+        <association property="location" javaType="com.iretailer.dto.LocationTmp">
             <result column="l_id" property="id" jdbcType="BIGINT"/>
             <result column="l_quare_id" property="quareId" jdbcType="INTEGER"/>
             <result column="l_quare_name" property="quareName" jdbcType="VARCHAR"/>
@@ -32,9 +23,26 @@
             <result column="l_city_name" property="cityName" jdbcType="VARCHAR"/>
             <result column="l_county_name" property="countryId" jdbcType="INTEGER"/>
             <result column="l_county_name" property="countryName" jdbcType="VARCHAR"/>
-        </association>-->
+        </association>
+        <collection property="siteZoneList" javaType="java.util.List" ofType="com.iretailer.dto.SiteZone">
+            <id column="sz_id" property="id" jdbcType="BIGINT"/>
+            <id column="sz_display_name" property="displayName" jdbcType="VARCHAR"/>
+            <id column="sz_type" property="type" jdbcType="VARCHAR"/>
+            <id column="sz_disabled" property="disabled" jdbcType="INTEGER"/>
+            <id column="sz_rank" property="rank" jdbcType="INTEGER"/>
+            <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
+            <id column="sz_description" property="description" jdbcType="VARCHAR"/>
+        </collection>
     </resultMap>
-
+    <resultMap id="LocationMap" type="com.iretailer.dto.Location">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="parent_id" property="pid" jdbcType="BIGINT"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="getweather" property="getweather" jdbcType="BIGINT"/>
+        <result column="rank" property="rank" jdbcType="BIGINT"/>
+        <result column="_name" property="name" jdbcType="VARCHAR"/>
+        <result column="display_name" property="displayName" jdbcType="VARCHAR"/>
+    </resultMap>
     <sql id="Base_Column_List">
 
     </sql>
@@ -75,5 +83,17 @@ location_tmp.county_name as l_county_name
 from site
 left join site_zone on site.id = site_zone.fk_site_id
 left join location_tmp on location_tmp.id = site.fk_location_id
+    </select>
+    <select id="queryLocation" resultMap="LocationMap">
+        select
+          id,
+          parent_id,
+          `type`,
+          getweather,
+          `rank`,
+          _name,
+          display_name
+          from location
+          where parent_id = #{pid,jdbcType=BIGINT}
     </select>
 </mapper>

@@ -10,7 +10,7 @@ and site.id = s_z.fk_site_id
 and site.fk_location_id = location_tmp.id
 <#elseif site_type ??>
 and site_tag.fk_site_id = s_z.fk_site_id
-and site_tag.`type` =  ${site_type}
+and site_tag.`type` =  '${site_type}'
 </#if>
 and records.date_time <= '${ed}'
 and records.date_time >= '${st}'
