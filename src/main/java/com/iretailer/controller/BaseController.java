@@ -15,6 +15,7 @@ import java.util.Map;
  * Created by clat on 2017/5/8.
  */
 @RestController
+@RequestMapping(value="api")
 public class BaseController {
 
     @Autowired
