@@ -1,5 +1,6 @@
 package com.iretailer.controller;
 
+import com.iretailer.dto.Location;
 import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 import com.iretailer.service.MetaDataService;
@@ -24,5 +25,9 @@ public class MetaDataController {
     @RequestMapping(value="" , method = RequestMethod.GET)
     public List<Site> query(){
         return metaDataService.query();
+    }
+    @RequestMapping(value="location" , method = RequestMethod.GET)
+    public List<Location> queryLocation(){
+        return metaDataService.queryLocation();
     }
 }

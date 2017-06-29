@@ -1,5 +1,6 @@
 package com.iretailer.dao;
 
+import com.iretailer.dto.Location;
 import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 
@@ -10,4 +11,6 @@ import java.util.List;
  */
 public interface MetaDataMapper {
     public List<Site> query();
+
+    List<Location> queryLocation(Long pid);
 }

@@ -1,19 +1,20 @@
 package com.iretailer.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by wubin on 2017/6/26.
+ * Created by wubin on 2017/6/28.
  */
 public class Location {
     private Long id;
-    private Long quareId;
-    private String quareName;
-    private String provinceId;
-    private String provinceName;
-    private Long cityId;
-    private String cityName;
-    private Long countryId;
-    private String countryName;
-
+    private Long pid;
+    private Integer type;
+    private Integer getweather;
+    private Long rank;
+    private String name;
+    private String displayName;
+    private List<Location> children = new ArrayList<>();
     public Long getId() {
         return id;
     }
@@ -22,67 +23,59 @@ public class Location {
         this.id = id;
     }
 
-    public Long getQuareId() {
-        return quareId;
+    public Long getPid() {
+        return pid;
     }
 
-    public void setQuareId(Long quareId) {
-        this.quareId = quareId;
+    public void setPid(Long pid) {
+        this.pid = pid;
     }
 
-    public String getQuareName() {
-        return quareName;
+    public Integer getType() {
+        return type;
     }
 
-    public void setQuareName(String quareName) {
-        this.quareName = quareName;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public String getProvinceId() {
-        return provinceId;
+    public Integer getGetweather() {
+        return getweather;
     }
 
-    public void setProvinceId(String provinceId) {
-        this.provinceId = provinceId;
+    public void setGetweather(Integer getweather) {
+        this.getweather = getweather;
     }
 
-    public String getProvinceName() {
-        return provinceName;
+    public Long getRank() {
+        return rank;
     }
 
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
+    public void setRank(Long rank) {
+        this.rank = rank;
     }
 
-    public Long getCityId() {
-        return cityId;
+    public String getName() {
+        return name;
     }
 
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public List<Location> getChildren() {
+        return children;
     }
 
-    public Long getCountryId() {
-        return countryId;
+    public void setChildren(List<Location> children) {
+        this.children = children;
     }
 
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Site {
     private Long id;
-    private Location location;
+    private LocationTmp location;
     private Long parentId;
     private Integer type;
     private Integer rank;
@@ -28,11 +28,11 @@ public class Site {
         this.id = id;
     }
 
-    public Location getLocation() {
+    public LocationTmp getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LocationTmp location) {
         this.location = location;
     }
 
