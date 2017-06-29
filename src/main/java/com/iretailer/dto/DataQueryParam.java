@@ -19,7 +19,7 @@ public class DataQueryParam implements Cloneable{
     String location;
     String siteType;
 
-    String period = "0";
+    String period = "d";
     Long startTime;
     Long endTime;
     GroupBy groupBy = new GroupBy();

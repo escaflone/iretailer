@@ -50,27 +50,27 @@ count_trades,
 (count_in/area) uaa,
 </#if>
 <#--计算指标 end-->
-<#--group by 用的 site id , site zone id ，业态，location 获取 start-->
-`records`.${v_id},
-<#--group by 用的 site id , site zone id ，业态，location 获取 end-->
+`records`.${v_id}
 <#--时间分辨, 到时分秒 ，还是到天-->
-<#if groupBy != 'ALL'>
-    <#include "column/timelineDate.ftl"/>
-</#if>
-
-from timeline
+<#if groupBy != 'All'>
+    ,<#include "column/timelineDate.ftl"/>
+from
+timeline
 left join (
     <#include "records.ftl"/>
 ) `records` on `records`._d = <#include "column/timelineDate.ftl"/>
-
 <#--site 或 site zone 表关联 end-->
 where timeline.date_time <= '${ed}'
 and timeline.date_time >= '${st}'
 and timeline.type = '${groupBy}'
 group by
 ${v_id},
-<#if groupBy != 'ALL'>
-    <#include "column/timelineDate.ftl"/>
+<#include "column/timelineDate.ftl"/>
+
+<#else>
+from (<#include "records.ftl"/>) `records`
+group by
+${v_id}
 </#if>
 
 <#include "limit/limit.ftl"/>

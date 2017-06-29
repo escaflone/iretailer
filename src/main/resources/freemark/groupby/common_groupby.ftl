@@ -1,10 +1,13 @@
 <#if siteid ?? || sitezoneid ?? >
-sid,
+sid
 </#if>
 
 <#if location ??>
-${location},
+,${location}
 <#elseif site_type ??>
-sitetype,
+,sitetype
 </#if>
-_d
+<#if groupBy =  'All'>
+<#else >
+,_d
+</#if>
