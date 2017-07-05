@@ -1,5 +1,6 @@
 package com.iretailer.controller;
 
+import com.iretailer.dto.Location;
 import com.iretailer.dto.Site;
 import com.iretailer.dto.User;
 import com.iretailer.service.MetaDataService;
@@ -15,14 +16,18 @@ import java.util.List;
  * Created by wubin on 2017/6/19.
  */
 @RestController
-@RequestMapping(value="apis/meta")
+@RequestMapping(value="apis")
 public class MetaDataController {
 
     @Autowired
     private MetaDataService metaDataService;
 
-    @RequestMapping(value="" , method = RequestMethod.GET)
+    @RequestMapping(value="meta" , method = RequestMethod.GET)
     public List<Site> query(){
         return metaDataService.query();
+    }
+    @RequestMapping(value="location" , method = RequestMethod.GET)
+    public List<Location> queryLocation(){
+        return metaDataService.queryLocation();
     }
 }
