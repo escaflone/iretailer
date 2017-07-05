@@ -3,13 +3,15 @@ package com.iretailer.dto;
 /**
  * Created by wubin on 2017/6/19.
  */
-public class pageWidget {
+public class PageWidget {
     private Long id;
     private Integer rank;
     private Integer sizex;
     private Integer sizey;
     private String name;
     private String code;
+    private String query;
+    private String chat;
 
     public Long getId() {
         return id;
@@ -57,5 +59,21 @@ public class pageWidget {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getChat() {
+        return chat;
+    }
+
+    public void setChat(String chat) {
+        this.chat = chat;
     }
 }

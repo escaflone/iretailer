@@ -43,6 +43,16 @@
         <result column="_name" property="name" jdbcType="VARCHAR"/>
         <result column="display_name" property="displayName" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap id="pageWidgetMap" type="com.iretailer.dto.PageWidget">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="rank" property="rank" jdbcType="BIGINT"/>
+        <result column="sizex" property="sizex" jdbcType="INTEGER"/>
+        <result column="sizey" property="sizey" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="query" property="query" jdbcType="VARCHAR"/>
+        <result column="chat" property="chat" jdbcType="VARCHAR"/>
+    </resultMap>
     <sql id="Base_Column_List">
 
     </sql>
@@ -96,4 +106,87 @@ left join location_tmp on location_tmp.id = site.fk_location_id
           from location
           where parent_id = #{pid,jdbcType=BIGINT}
     </select>
+    <select id="queryPageWidget" resultMap="pageWidgetMap">
+        select id, rank, sizex,sizey, `name`, code, query, chat from page_widget
+    </select>
+    <update id="updatePageWidget" parameterType="com.iretailer.dto.PageWidget">
+        update page_widget
+        <set>
+            <if test="rank != null">
+                rank = #{rank,jdbcType=BIGINT},
+            </if>
+            <if test="sizex != null">
+                sizex = #{sizex,jdbcType=INTEGER},
+            </if>
+            <if test="sizey != null">
+                sizey = #{sizey,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="query != null">
+                query = #{query,jdbcType=VARCHAR},
+            </if>
+            <if test="chat != null">
+                chat = #{chat,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <delete id="deletePageWidget" parameterType="com.iretailer.dto.PageWidget">
+        delete from page_widget
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="createPageWidget" parameterType="com.iretailer.dto.PageWidget">
+        insert into page_widget
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rank != null">
+                rank,
+            </if>
+            <if test="sizex != null">
+                sizex,
+            </if>
+            <if test="sizey != null">
+                sizey,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="query != null">
+                query,
+            </if>
+            <if test="chat != null">
+                chat,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rank != null">
+                #{rank,jdbcType=BIGINT},
+            </if>
+            <if test="sizex != null">
+                #{sizex,jdbcType=INTEGER},
+            </if>
+            <if test="sizey != null">
+                #{sizey,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="query != null">
+                #{query,jdbcType=VARCHAR},
+            </if>
+            <if test="chat != null">
+                #{chat,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

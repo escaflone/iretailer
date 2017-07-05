@@ -1,11 +1,9 @@
 package com.iretailer;
 
-import com.iretailer.dto.DataQueryParam;
-import com.iretailer.dto.Location;
-import com.iretailer.dto.Site;
-import com.iretailer.dto.User;
+import com.iretailer.dto.*;
 import com.iretailer.service.BaseService;
 import com.iretailer.service.MetaDataService;
+import com.iretailer.service.PageWidgetService;
 import com.iretailer.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +24,11 @@ public class IretailerApplicationTests {
 	UserService userService;
 	@Autowired
 	private MetaDataService metaDataService;
+	@Autowired
+	private PageWidgetService pageWidgetService;
+
+
+
 //	@Test
 //	public void contextLoads() {}
 
@@ -86,4 +89,34 @@ public class IretailerApplicationTests {
 		List<Location> list = metaDataService.queryLocation();
 		System.out.println(list.size());
 	}
+
+	@Test
+	public void voidTestPageWidget_Create(){
+		PageWidget pageWidget = new PageWidget();
+		pageWidget.setChat("chat1");pageWidget.setCode("code1");pageWidget.setName("name1");
+		pageWidget.setQuery("query1");pageWidget.setSizex(1);pageWidget.setSizey(1);
+		pageWidget.setRank(1);
+		pageWidgetService.create(pageWidget);
+	}
+
+	@Test
+	public void voidTestPageWidget_update(){
+		PageWidget pageWidget = new PageWidget();
+		pageWidget.setId(9l);
+		pageWidget.setRank(2);
+		pageWidgetService.update(pageWidget);
+	}
+	@Test
+	public void voidTestPageWidget_query(){
+		List<PageWidget> pageWidgets = pageWidgetService.query();
+		System.out.println(pageWidgets);
+	}
+	@Test
+	public void voidTestPageWidget_delete(){
+		PageWidget pageWidget = new PageWidget();
+		pageWidget.setId(9l);
+		pageWidgetService.delete(pageWidget);
+	}
+
+
 }
