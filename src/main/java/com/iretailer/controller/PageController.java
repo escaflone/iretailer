@@ -26,15 +26,15 @@ public class PageController {
         return pwService.query();
     }
     @RequestMapping(value="" , method = RequestMethod.PUT)
-    public void update(PageWidget pageWidget){
+    public void update(@RequestBody PageWidget pageWidget){
         pwService.update(pageWidget);
     }
     @RequestMapping(value="" , method = RequestMethod.DELETE)
-    public void delete(PageWidget pageWidget){
+    public void delete(@RequestBody PageWidget pageWidget){
         pwService.delete(pageWidget);
     }
     @RequestMapping(value="" , method = RequestMethod.POST)
-    public void create(PageWidget pageWidget){
+    public void create(@RequestBody PageWidget pageWidget){
         pwService.create(pageWidget);
     }
 }
