@@ -5,10 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by clat on 2017/5/21.
@@ -43,6 +40,7 @@ public class Constant {
     }
     public static String timeFormat(Long l){
         Date date = new Date(l);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return dateFormat.format(date);
     }
 }
