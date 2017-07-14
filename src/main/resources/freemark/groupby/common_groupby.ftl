@@ -1,5 +1,5 @@
 <#if siteid ?? || sitezoneid ?? >
-sid
+sid,`name`
 </#if>
 
 <#if location ??>

@@ -30,4 +30,9 @@ public class MetaDataController {
     public List<Location> queryLocation(){
         return metaDataService.queryLocation();
     }
+    @RequestMapping(value="siteZone" , method = RequestMethod.GET)
+    public List<Site> querySZBySiteId(){
+//        return metaDataService.querySiteZoneByZiteId();
+        return null;
+    }
 }

@@ -1,19 +1,24 @@
 package com.iretailer.controller;
 
+import com.iretailer.controller.response.ErrorMessage;
+import com.iretailer.controller.response.RestResponse;
 import com.iretailer.dto.User;
 import com.iretailer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
  * Created by wubin on 2017/6/19.
  */
 @RestController
-@RequestMapping(value="user")
+@RequestMapping(value="/apis")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -30,8 +35,18 @@ public class UserController {
     }
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public User login(User user){
-//        int id = userService.queryUserByUserNameAndPassword(user);
-        return user;
+    public RestResponse login(@RequestBody User user, HttpSession httpSession){
+        RestResponse<String> result = new RestResponse<>();
+        try{
+            User userDB = userService.queryUserByUserNameAndPassword(user);
+            httpSession.setAttribute("userId",userDB.getUserId());
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+            result.setCode(ErrorMessage.SYSTEM_ERROR.getCode());
+            result.setMsg(MessageFormat.format(ErrorMessage.SYSTEM_ERROR.getMsg(), e.getMessage()));
+        }
+        return result;
     }
 }

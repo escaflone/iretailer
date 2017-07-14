@@ -1,9 +1,6 @@
 package com.iretailer.dao;
 
-import com.iretailer.dto.Location;
-import com.iretailer.dto.PageWidget;
-import com.iretailer.dto.Site;
-import com.iretailer.dto.User;
+import com.iretailer.dto.*;
 
 import java.util.List;
 
@@ -22,4 +19,6 @@ public interface MetaDataMapper {
     int deletePageWidget(PageWidget pageWidget);
 
     int createPageWidget(PageWidget pageWidget);
+
+    List<SiteZone> getSiteZoneBSiteId(Long sid);
 }

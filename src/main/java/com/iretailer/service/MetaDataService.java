@@ -4,6 +4,7 @@ import com.iretailer.dao.MetaDataMapper;
 import com.iretailer.dao.UserMapper;
 import com.iretailer.dto.Location;
 import com.iretailer.dto.Site;
+import com.iretailer.dto.SiteZone;
 import com.iretailer.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,10 @@ public class MetaDataService {
             e.setChildren(getLocation(e));
         });
         return locationList;
+    }
+
+    public List<SiteZone> querySiteZoneByZiteId() {
+//        return metaDataMapper.getSiteZoneBSiteId();
+        return null;
     }
 }

@@ -5,9 +5,9 @@
     <#assign v_id = "sitetype">
 <#elseif split != 0>
 <#if siteid ??>
-    <#assign v_id = "sid">
+    <#assign v_id = "sid,`name`">
 <#elseif sitezoneid ??>
-    <#assign v_id = "szid">
+    <#assign v_id = "sid,`name`">
 </#if>
 <#else>
     <#assign v_id = "'1'">

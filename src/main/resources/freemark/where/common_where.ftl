@@ -5,8 +5,8 @@ and op.fk_site_id= s_z.fk_site_id
 and records.date = op.date
 and records.time >= op.start_time
 and records.time < op.end_time
-<#if location ??>
 and site.id = s_z.fk_site_id
+<#if location ??>
 and site.fk_location_id = location_tmp.id
 <#elseif site_type ??>
 and site_tag.fk_site_id = s_z.fk_site_id

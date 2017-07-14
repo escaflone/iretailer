@@ -14,5 +14,5 @@ public interface UserMapper {
 
     User queryById(int id);
 
-    User queryUserByUserNameAndPassword(User user);
+    User queryUserByUserName(User user);
 }

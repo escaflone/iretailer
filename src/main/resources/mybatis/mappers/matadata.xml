@@ -34,6 +34,15 @@
             <id column="sz_description" property="description" jdbcType="VARCHAR"/>
         </collection>
     </resultMap>
+    <resultMap id="siteZone" type="com.iretailer.dto.SiteZone">
+        <id column="sz_id" property="id" jdbcType="BIGINT"/>
+        <id column="sz_display_name" property="displayName" jdbcType="VARCHAR"/>
+        <id column="sz_type" property="type" jdbcType="VARCHAR"/>
+        <id column="sz_disabled" property="disabled" jdbcType="INTEGER"/>
+        <id column="sz_rank" property="rank" jdbcType="INTEGER"/>
+        <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
+        <id column="sz_description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
     <resultMap id="LocationMap" type="com.iretailer.dto.Location">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="parent_id" property="pid" jdbcType="BIGINT"/>
@@ -189,4 +198,7 @@ left join location_tmp on location_tmp.id = site.fk_location_id
             </if>
         </trim>
     </insert>
+    <select id="getSiteZoneBSiteId" resultMap="pageWidgetMap">
+        select id, rank, sizex,sizey, `name`, code, query, chat from page_widget
+    </select>
 </mapper>

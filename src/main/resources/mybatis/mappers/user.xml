@@ -63,4 +63,10 @@
             #{locked,jdbcType=BIGINT}
         </if>)
     </insert>
+    <select id="queryUserByUserName" resultMap="BaseResultMap" parameterType="com.iretailer.dto.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where user_name = #{userName , jdbcType=VARCHAR}
+    </select>
 </mapper>
