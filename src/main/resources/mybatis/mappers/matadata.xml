@@ -35,13 +35,13 @@
         </collection>
     </resultMap>
     <resultMap id="siteZone" type="com.iretailer.dto.SiteZone">
-        <id column="sz_id" property="id" jdbcType="BIGINT"/>
-        <id column="sz_display_name" property="displayName" jdbcType="VARCHAR"/>
-        <id column="sz_type" property="type" jdbcType="VARCHAR"/>
-        <id column="sz_disabled" property="disabled" jdbcType="INTEGER"/>
-        <id column="sz_rank" property="rank" jdbcType="INTEGER"/>
-        <id column="sz_coordinate" property="coordinate" jdbcType="VARCHAR"/>
-        <id column="sz_description" property="description" jdbcType="VARCHAR"/>
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <id column="display_name" property="displayName" jdbcType="VARCHAR"/>
+        <id column="type" property="type" jdbcType="VARCHAR"/>
+        <id column="disabled" property="disabled" jdbcType="INTEGER"/>
+        <id column="rank" property="rank" jdbcType="INTEGER"/>
+        <id column="coordinate" property="coordinate" jdbcType="VARCHAR"/>
+        <id column="description" property="description" jdbcType="VARCHAR"/>
     </resultMap>
     <resultMap id="LocationMap" type="com.iretailer.dto.Location">
         <id column="id" property="id" jdbcType="BIGINT"/>
@@ -115,8 +115,18 @@ left join location_tmp on location_tmp.id = site.fk_location_id
           from location
           where parent_id = #{pid,jdbcType=BIGINT}
     </select>
-    <select id="queryPageWidget" resultMap="pageWidgetMap">
+    <select id="queryPageWidget" resultMap="pageWidgetMap" parameterType="java.lang.Long">
         select id, rank, sizex,sizey, `name`, code, query, chat from page_widget
+        select pw.id as id,
+        pw.rank as rank,
+        pw.sizex as sizex,
+        pw.sizey as sizey,
+        pw.`name` as `name`,
+        pw.`code` as `code`,
+        pw.`query` as `query`,
+        pw.chat as chat
+        from page_widget pw, r_user_page_widget rupw
+        where rupw.user_id = #{userid,jdbcType=BIGINT}
     </select>
     <update id="updatePageWidget" parameterType="com.iretailer.dto.PageWidget">
         update page_widget
@@ -198,7 +208,20 @@ left join location_tmp on location_tmp.id = site.fk_location_id
             </if>
         </trim>
     </insert>
-    <select id="getSiteZoneBSiteId" resultMap="pageWidgetMap">
-        select id, rank, sizex,sizey, `name`, code, query, chat from page_widget
+    <select id="getSiteZoneBSiteId" resultMap="siteZone" parameterType="java.lang.Long">
+       select id,
+       display_name,
+       `type`,
+       disabled,
+       rank,
+       coordinate,
+       description
+       from site_zone
+       where fk_site_id = #{id,jdbcType=BIGINT}
     </select>
+    <delete id="deleteUserPageWidget" >
+        delete from r_user_page_widget
+            where page_widget_id = #{pwId}
+            and user_id = #{userId}
+    </delete>
 </mapper>

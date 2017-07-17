@@ -17,10 +17,13 @@ public class Constant {
     public static String COLUMN = "column";
     public static String TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+
     //查询参数配置
     public static Map<String,String> templateMap = new HashMap<>();
     public static Map<String,CalRule> calMap = new HashMap<>();
 
+    //
+    public static String USER_ID = "userid";
     @PostConstruct
     private void init(){
         templateMap = MapBuilder.build(new HashMap())

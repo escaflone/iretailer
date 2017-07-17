@@ -1,6 +1,7 @@
 package com.iretailer.dao;
 
 import com.iretailer.dto.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface MetaDataMapper {
 
     List<Location> queryLocation(Long pid);
 
-    List<PageWidget> queryPageWidget();
+    List<PageWidget> queryPageWidget(Long userid);
 
     int updatePageWidget(PageWidget pageWidget);
 
@@ -21,4 +22,6 @@ public interface MetaDataMapper {
     int createPageWidget(PageWidget pageWidget);
 
     List<SiteZone> getSiteZoneBSiteId(Long sid);
+
+    void deleteUserPageWidget(@Param("userId")Long userid, @Param("pwId")Long pwid);
 }

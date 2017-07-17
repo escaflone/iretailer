@@ -38,8 +38,7 @@ public class MetaDataService {
         return locationList;
     }
 
-    public List<SiteZone> querySiteZoneByZiteId() {
-//        return metaDataMapper.getSiteZoneBSiteId();
-        return null;
+    public List<SiteZone> querySiteZoneByZiteId(Long id) {
+        return metaDataMapper.getSiteZoneBSiteId(id);
     }
 }
