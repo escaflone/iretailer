@@ -29,8 +29,8 @@ public class IretailerApplicationTests {
 
 
 
-//	@Test
-//	public void contextLoads() {}
+	@Test
+	public void contextLoads() {}
 
 //	@Test
 //	public void testBaseService(){
