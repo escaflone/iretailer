@@ -24,4 +24,6 @@ public interface MetaDataMapper {
     List<SiteZone> getSiteZoneBSiteId(Long sid);
 
     void deleteUserPageWidget(@Param("userId")Long userid, @Param("pwId")Long pwid);
+
+    void createUserPageWidget(@Param("userId")Long userid, @Param("pwId")Long pwid);
 }

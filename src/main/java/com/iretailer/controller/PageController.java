@@ -35,12 +35,10 @@ public class PageController extends BaseController{
     @RequestMapping(value="" , method = RequestMethod.DELETE)
     public void delete(@RequestBody PageWidget pageWidget,HttpSession httpSession){
         Long userId = getUserIdFromSession(httpSession);
-        /**删除page widget , user和page widget 关系*/
         pwService.delete(pageWidget,userId);
     }
     @RequestMapping(value="" , method = RequestMethod.POST)
-    public void create(@RequestBody PageWidget pageWidget){
-        pwService.create(pageWidget);
+    public void create(@RequestBody PageWidget pageWidget,HttpSession httpSession){
+        pwService.create(pageWidget,getUserIdFromSession(httpSession));
     }
-
 }

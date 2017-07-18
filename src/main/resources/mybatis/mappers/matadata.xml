@@ -172,7 +172,7 @@ left join location_tmp on location_tmp.id = site.fk_location_id
                 sizey,
             </if>
             <if test="name != null">
-                name,
+                `name`,
             </if>
             <if test="code != null">
                 code,
@@ -224,4 +224,8 @@ left join location_tmp on location_tmp.id = site.fk_location_id
             where page_widget_id = #{pwId}
             and user_id = #{userId}
     </delete>
+    <insert id="createPageWidget" parameterType="com.iretailer.dto.PageWidget">
+        insert into r_user_page_widget (page_widget_id, user_id)
+        values(#{pwId}, #{userId})
+    </insert>
 </mapper>

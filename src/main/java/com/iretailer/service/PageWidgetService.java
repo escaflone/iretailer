@@ -32,12 +32,16 @@ public class PageWidgetService {
         deleteUserPageWidget(userid,pageWidget.getId());
         metaDataMapper.deletePageWidget(pageWidget);
     }
-
-    public void create(PageWidget pageWidget) {
+    @Transactional
+    public void create(PageWidget pageWidget, Long userId) {
         metaDataMapper.createPageWidget(pageWidget);
+        createUserPageWidget(userId, pageWidget.getId());
     }
 
-    public void deleteUserPageWidget(Long userid, Long pwid){
+    private void deleteUserPageWidget(Long userid, Long pwid){
         metaDataMapper.deleteUserPageWidget(userid,pwid);
+    }
+    private void createUserPageWidget(Long userid, Long pwid){
+        metaDataMapper.createUserPageWidget(userid, pwid);
     }
 }
