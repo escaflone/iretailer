@@ -48,9 +48,10 @@ public class UserController {
                 /**密码错误*/
                 result.setCode(ErrorMessage.PW_ERROR.getCode());
                 result.setMsg(ErrorMessage.PW_ERROR.getMsg());
+            }else{
+                httpSession.setAttribute(Constant.USER_ID,userDB.getUserId());
+                result.setData(userDB);
             }
-            httpSession.setAttribute(Constant.USER_ID,userDB.getUserId());
-            result.setData(userDB);
         }catch(Exception e){
             e.printStackTrace();
             result.setCode(ErrorMessage.SYSTEM_ERROR.getCode());
