@@ -75,7 +75,8 @@ and timeline.type = '${groupBy}'
 group by
 ${v_id},
 <#include "column/timelineDate.ftl"/>
-
+order by
+    <#include "column/timelineDate.ftl"/>
 <#else>
 from (<#include "records.ftl"/>) `records`
 group by
