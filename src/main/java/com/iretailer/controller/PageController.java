@@ -38,7 +38,8 @@ public class PageController extends BaseController{
         pwService.delete(pageWidget,userId);
     }
     @RequestMapping(value="" , method = RequestMethod.POST)
-    public void create(@RequestBody PageWidget pageWidget,HttpSession httpSession){
+    public PageWidget create(@RequestBody PageWidget pageWidget,HttpSession httpSession){
         pwService.create(pageWidget,getUserIdFromSession(httpSession));
+        return pageWidget;
     }
 }

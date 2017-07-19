@@ -116,7 +116,6 @@ left join location_tmp on location_tmp.id = site.fk_location_id
           where parent_id = #{pid,jdbcType=BIGINT}
     </select>
     <select id="queryPageWidget" resultMap="pageWidgetMap" parameterType="java.lang.Long">
-        select id, rank, sizex,sizey, `name`, code, query, chat from page_widget
         select pw.id as id,
         pw.rank as rank,
         pw.sizex as sizex,
@@ -126,7 +125,8 @@ left join location_tmp on location_tmp.id = site.fk_location_id
         pw.`query` as `query`,
         pw.chat as chat
         from page_widget pw, r_user_page_widget rupw
-        where rupw.user_id = #{userid,jdbcType=BIGINT}
+        where pw.id = rupw.page_widget_id
+        and rupw.user_id = #{userid,jdbcType=BIGINT}
     </select>
     <update id="updatePageWidget" parameterType="com.iretailer.dto.PageWidget">
         update page_widget
@@ -159,7 +159,7 @@ left join location_tmp on location_tmp.id = site.fk_location_id
         delete from page_widget
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="createPageWidget" parameterType="com.iretailer.dto.PageWidget">
+    <insert id="createPageWidget" parameterType="com.iretailer.dto.PageWidget" useGeneratedKeys="true" keyProperty="id">
         insert into page_widget
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="rank != null">
@@ -225,7 +225,7 @@ left join location_tmp on location_tmp.id = site.fk_location_id
             and user_id = #{userId}
     </delete>
     <insert id="createUserPageWidget" parameterType="com.iretailer.dto.PageWidget">
-        insert into r_user_page_widget (page_widget_id, user_id)
-        values(#{pwId}, #{userId})
+        insert into r_user_page_widget (page_widget_id, user_id,rank)
+        values(#{pwId}, #{userId}, 0)
     </insert>
 </mapper>
