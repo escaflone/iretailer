@@ -62,7 +62,7 @@ ${v_id}
 
 <#--时间分辨, 到时分秒 ，还是到天-->
 <#if groupBy != 'All'>
-    ,<#include "column/timelineDate.ftl"/>
+    ,<#include "column/timelineDate.ftl"/>  `date`
 from
 timeline
 left join (
@@ -74,9 +74,9 @@ and timeline.date_time >= '${st}'
 and timeline.type = '${groupBy}'
 group by
 ${v_id},
-<#include "column/timelineDate.ftl"/>
+`date`
 order by
-    <#include "column/timelineDate.ftl"/>
+`date`
 <#else>
 from (<#include "records.ftl"/>) `records`
 group by

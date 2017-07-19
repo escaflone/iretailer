@@ -121,12 +121,12 @@ public class BaseService {
         int columnSize = metaData.getColumnCount();
         //TODO 如果结果集为空 做判断
         for (int i = 1; i <= columnSize; i++) {
-            result.get(COLUMN).add(metaData.getColumnName(i));
+            result.get(COLUMN).add(metaData.getColumnLabel(i));
         }
         while (rs.next()) {
             Map<String, String> map = new HashMap<>();
             for (int i = 1; i <= columnSize; i++) {
-                map.put(metaData.getColumnName(i), rs.getString(i));
+                map.put(metaData.getColumnLabel(i), rs.getString(i));
             }
             result.get(DATA).add(map);
         }
