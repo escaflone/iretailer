@@ -75,8 +75,10 @@ public class BaseService {
 
         if(dqp.getSiteIdList().size() > 0) {
             params.put("siteid", getSiteIds(dqp.getSiteIdList()));
+            params.put("sidlist",dqp.getSiteIdList());
         }else if(dqp.getSiteZoneList().size() > 0) {
             params.put("sitezoneid",getSiteIds(dqp.getSiteZoneList()));
+            params.put("sidlist",dqp.getSiteZoneList());
         }
         if(dqp.getLocation() != null){
             params.put("location",dqp.getLocation());

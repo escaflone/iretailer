@@ -1,5 +1,5 @@
-<#if groupBy = "w" || groupBy = "m" || groupBy = "q" || groupBy = "y">
-timeline.only_date
+<#if groupBy = "w" || groupBy = "m" || groupBy = "q" || groupBy = "y" || groupBy = "d">
+only_date
 <#else>
-timeline.date_time
+date_time
 </#if>

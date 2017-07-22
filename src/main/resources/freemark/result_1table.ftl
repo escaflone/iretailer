@@ -5,9 +5,9 @@
     <#assign v_id = "sitetype">
 <#elseif split != 0>
 <#if siteid ??>
-    <#assign v_id = "sid,`name`">
+    <#assign v_id = "_s,`name`">
 <#elseif sitezoneid ??>
-    <#assign v_id = "sid,`name`">
+    <#assign v_id = "_s,`name`">
 </#if>
 <#else>
     <#assign v_id = "'1'">
@@ -55,23 +55,38 @@ count_trades,
 </#if>
 <#--计算指标 end-->
 <#if split = 1>
-`records`.${v_id}
+${v_id}
 <#else>
 ${v_id}
 </#if>
 
 <#--时间分辨, 到时分秒 ，还是到天-->
 <#if groupBy != 'All'>
-    ,<#include "column/timelineDate.ftl"/>  `date`
+    ,timeline.`date`
 from
-timeline
+
+(
+<#list sidlist as s>
+(
+select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as _s
+from timeline t
+where t.date_time <= '${ed}'
+and t.date_time >= '${st}'
+and t.type = '${groupBy}'
+) union
+</#list>
+(select -1 as `date` ,-1 as _s from timeline limit 1)
+
+) timeline
 left join (
     <#include "records.ftl"/>
-) `records` on `records`._d = <#include "column/timelineDate.ftl"/>
+) `records` on (`records`._d =  timeline.`date` and `records`.sid = timeline._s)
+where timeline.`date` != -1
 <#--site 或 site zone 表关联 end-->
-where timeline.date_time <= '${ed}'
-and timeline.date_time >= '${st}'
-and timeline.type = '${groupBy}'
+<#--where-->
+<#--timeline.date_time <= '${ed}'-->
+<#--and timeline.date_time >= '${st}'-->
+<#--and timeline.type = '${groupBy}'-->
 group by
 ${v_id},
 `date`
