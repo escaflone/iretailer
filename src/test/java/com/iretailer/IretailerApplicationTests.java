@@ -47,7 +47,7 @@ public class IretailerApplicationTests {
 		dqp.setEndTime(1501372800000l);//2016-12-01
 //		dqp.setStartTime(1477929600000l);
 //		dqp.setEndTime(1477929600000l);
-		dqp.setPeriod("d");
+		dqp.setPeriod("All");
 //		dqp.setSplit(0);
 //		dqp.getGroupBy().setPeriod("10");
 //		dqp.getSortBy().put("enter",1);

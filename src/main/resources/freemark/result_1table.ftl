@@ -4,11 +4,12 @@
 <#elseif site_type ??>
     <#assign v_id = "sitetype">
 <#elseif split != 0>
-<#if siteid ??>
-    <#assign v_id = "_s,`_name`">
-<#elseif sitezoneid ??>
-    <#assign v_id = "_s,`_name`">
-</#if>
+    <#if groupBy != 'All'>
+        <#assign v_id = "tl.sid,tl.`name`">
+    <#else>
+        <#assign v_id = "sid,`name`">
+    </#if>
+
 <#else>
     <#assign v_id = "'1'">
 </#if>
@@ -62,13 +63,13 @@ ${v_id}
 
 <#--时间分辨, 到时分秒 ，还是到天-->
 <#if groupBy != 'All'>
-    ,timeline.`date`
+    ,tl.`date`
 from
 
 (
 <#list sidlist as s>
 (
-select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as _s , site.display_name as _name
+select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as sid , site.display_name as `name`
 from timeline t,site
 where t.date_time <= '${ed}'
 and t.date_time >= '${st}'
@@ -76,13 +77,13 @@ and t.type = '${groupBy}'
 and site.id = ${s}
 ) union
 </#list>
-(select -1 as `date` ,-1 as _s  ,-1 as _name from timeline limit 1)
+(select -1 as `date` ,-1 as sid  ,-1 as `name` from timeline limit 1)
 
-) timeline
+) tl
 left join (
     <#include "records.ftl"/>
-) `records` on (`records`._d =  timeline.`date` and `records`.sid = timeline._s)
-where timeline.`date` != -1
+) `records` on (`records`._d =  tl.`date` and `records`.sid = tl.sid)
+where tl.`date` != -1
 <#--site 或 site zone 表关联 end-->
 <#--where-->
 <#--timeline.date_time <= '${ed}'-->
