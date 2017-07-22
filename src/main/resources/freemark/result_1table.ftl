@@ -5,9 +5,9 @@
     <#assign v_id = "sitetype">
 <#elseif split != 0>
 <#if siteid ??>
-    <#assign v_id = "_s,`name`">
+    <#assign v_id = "_s,`_name`">
 <#elseif sitezoneid ??>
-    <#assign v_id = "_s,`name`">
+    <#assign v_id = "_s,`_name`">
 </#if>
 <#else>
     <#assign v_id = "'1'">
@@ -68,14 +68,15 @@ from
 (
 <#list sidlist as s>
 (
-select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as _s
-from timeline t
+select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as _s , site.display_name as _name
+from timeline t,site
 where t.date_time <= '${ed}'
 and t.date_time >= '${st}'
 and t.type = '${groupBy}'
+and site.id = ${s}
 ) union
 </#list>
-(select -1 as `date` ,-1 as _s from timeline limit 1)
+(select -1 as `date` ,-1 as _s  ,-1 as _name from timeline limit 1)
 
 ) timeline
 left join (
