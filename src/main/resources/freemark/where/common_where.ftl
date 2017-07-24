@@ -17,7 +17,7 @@ and records.date_time >= '${st}'
 
 <#if siteid ??>
 and s_z.fk_site_id in (${siteid})
-and s_z.type = 0
+and s_z.type = ${siteZoneType}
 <#elseif sitezoneid ??>
 and s_z.id in (${sitezoneid})
 </#if>
