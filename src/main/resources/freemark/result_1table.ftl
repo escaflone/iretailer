@@ -5,7 +5,7 @@
     <#assign v_id = "sitetype">
 <#elseif split != 0>
     <#if groupBy != 'All'>
-        <#assign v_id = "tl.sid,tl.`name`">
+        <#assign v_id = "tl.sid,tl.`name`,tl.`type`">
     <#else>
         <#assign v_id = "sid,`name`">
     </#if>
@@ -79,7 +79,7 @@ from
 <#list sidlist as s>
 
 (
-select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as sid , ${siteOrZoneTable}.display_name as `name`
+select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as sid , ${siteOrZoneTable}.display_name as `name`, ${siteOrZoneTable}.`type`
 from timeline t,${siteOrZoneTable}
 where t.date_time <= '${ed}'
 and t.date_time >= '${st}'
@@ -87,7 +87,7 @@ and t.type = '${groupBy}'
 and ${siteOrZoneTable}.id = ${s}
 ) union
 </#list>
-(select -1 as `date` ,-1 as sid  ,-1 as `name` from timeline limit 1)
+(select -1 as `date` ,-1 as sid  ,-1 as `name` ,-1 as `type` from timeline limit 1)
 
 ) tl
 left join (
