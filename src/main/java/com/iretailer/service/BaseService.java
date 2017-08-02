@@ -90,7 +90,7 @@ public class BaseService {
         }else if(dqp.getSiteType() != null){
             params.put("site_type",dqp.getSiteType());
         }
-
+        params.put("siteZoneType",dqp.getSiteZoneType());
         if(dqp.getLimit().size()==2){
             List<Integer> list= dqp.getLimit();
             params.put("limit",list.get(0)+","+list.get(1));

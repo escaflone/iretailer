@@ -19,7 +19,7 @@ public class DataQueryParam implements Cloneable{
     String location;
     String siteType;
     Integer split = 1; // 0 不做分组， 1做分组 ， 目标 site 或  site zone
-
+    Integer siteZoneType = 0;
     String period = "d";
     Long startTime;
     Long endTime;
@@ -153,5 +153,13 @@ public class DataQueryParam implements Cloneable{
 
     public void setTimeos(Long timeos) {
         this.timeos = timeos;
+    }
+
+    public Integer getSiteZoneType() {
+        return siteZoneType;
+    }
+
+    public void setSiteZoneType(Integer siteZoneType) {
+        this.siteZoneType = siteZoneType;
     }
 }

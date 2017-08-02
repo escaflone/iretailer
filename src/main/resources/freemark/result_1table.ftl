@@ -5,14 +5,23 @@
     <#assign v_id = "sitetype">
 <#elseif split != 0>
     <#if groupBy != 'All'>
-        <#assign v_id = "tl.sid,tl.`name`">
+        <#assign v_id = "tl.sid,tl.`name`,tl.`type`">
     <#else>
         <#assign v_id = "sid,`name`">
     </#if>
-
 <#else>
     <#assign v_id = "'1'">
 </#if>
+<#if siteid ??>
+    <#assign siteOrZoneTable = "site">
+<#elseif sitezoneid ??>
+    <#assign siteOrZoneTable = "site_zone">
+</#if>
+
+
+
+
+
 <#--变量申明区域 end -->
 select
 <#-- 普通指标 start-->
@@ -68,16 +77,17 @@ from
 
 (
 <#list sidlist as s>
+
 (
-select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as sid , site.display_name as `name`
-from timeline t,site
+select t.<#include "column/timelineDate.ftl"/> `date`, ${s} as sid , ${siteOrZoneTable}.display_name as `name`, ${siteOrZoneTable}.`type`
+from timeline t,${siteOrZoneTable}
 where t.date_time <= '${ed}'
 and t.date_time >= '${st}'
 and t.type = '${groupBy}'
-and site.id = ${s}
+and ${siteOrZoneTable}.id = ${s}
 ) union
 </#list>
-(select -1 as `date` ,-1 as sid  ,-1 as `name` from timeline limit 1)
+(select -1 as `date` ,-1 as sid  ,-1 as `name` ,-1 as `type` from timeline limit 1)
 
 ) tl
 left join (

@@ -43,18 +43,19 @@ public class IretailerApplicationTests {
 //		dqp.getDataFields().add("count_goods");
 //		dqp.getDataFields().add("acv");
 //		dqp.getDataFields().add("upt");
-		dqp.setStartTime(1498867200000l);//2016-11-26
-		dqp.setEndTime(1501372800000l);//2016-12-01
-//		dqp.setStartTime(1477929600000l);
-//		dqp.setEndTime(1477929600000l);
-		dqp.setPeriod("All");
+//		dqp.setStartTime(1498867200000l);//2016-11-26
+//		dqp.setEndTime(1501372800000l);//2016-12-01
+		dqp.setStartTime(1500652800000l);
+		dqp.setEndTime(1500739199999l);
+		dqp.setPeriod("dh");
 //		dqp.setSplit(0);
 //		dqp.getGroupBy().setPeriod("10");
 //		dqp.getSortBy().put("enter",1);
 //		dqp.setSiteIdList(Arrays.asList(new Integer[] {20,3}));
-		dqp.setSiteZoneList(Arrays.asList(new Integer[] {36,2}));
+		dqp.setSiteZoneList(Arrays.asList(new Integer[]{2,36}));
 //		dqp.setLocation("quare_name");
 //		dqp.setSiteType("业态");
+		dqp.setReturnType(2);
 		baseService.query(dqp);
 	}
 //
