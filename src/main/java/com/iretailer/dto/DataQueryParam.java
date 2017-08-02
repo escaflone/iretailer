@@ -23,6 +23,7 @@ public class DataQueryParam implements Cloneable{
     String period = "d";
     Long startTime;
     Long endTime;
+    Long timeos;
     GroupBy groupBy = new GroupBy();
     Map<String, Integer> sortBy = new HashMap<>();
     List<Integer> limit = new ArrayList<>();
@@ -144,5 +145,13 @@ public class DataQueryParam implements Cloneable{
 
     public void setPeriod(String period) {
         this.period = period;
+    }
+
+    public Long getTimeos() {
+        return timeos;
+    }
+
+    public void setTimeos(Long timeos) {
+        this.timeos = timeos;
     }
 }

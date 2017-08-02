@@ -51,7 +51,8 @@ public class IretailerApplicationTests {
 //		dqp.setSplit(0);
 //		dqp.getGroupBy().setPeriod("10");
 //		dqp.getSortBy().put("enter",1);
-		dqp.setSiteIdList(Arrays.asList(new Integer[] {20,3}));
+//		dqp.setSiteIdList(Arrays.asList(new Integer[] {20,3}));
+		dqp.setSiteZoneList(Arrays.asList(new Integer[] {36,2}));
 //		dqp.setLocation("quare_name");
 //		dqp.setSiteType("业态");
 		baseService.query(dqp);

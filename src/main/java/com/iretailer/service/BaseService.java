@@ -62,8 +62,13 @@ public class BaseService {
             }
             columnsMap.put(e, "");
         }
+        Long timeos = dqp.getTimeos();
+        Long endTime = dqp.getEndTime();
+        if(timeos!=null){
+            endTime= dqp.getStartTime() + timeos;
+        }
         String st = Constant.timeFormat(dqp.getStartTime());
-        String ed = Constant.timeFormat(dqp.getEndTime());
+        String ed = Constant.timeFormat(endTime);
 
         String groupBy = dqp.getPeriod();
 
